@@ -547,6 +547,8 @@ for info_f in %info_files; do
 done
 # info.gz is a rename of info.info.gz and thus needs special handling
 echo "%{_infodir}/info*" >> info-filelist
+# elisp.info.gz has additional files
+echo "%{_infodir}/elisp_type_hierarchy*" >> info-filelist
 
 # Put the lists together after filtering  ./usr to /usr
 sed -i -e "s|\.%{_prefix}|%{_prefix}|" *-files
