@@ -55,6 +55,10 @@ Patch:         0003-Mark-multiple-mml-sec-tests-as-unstable-when-built-i.patch
 # gets any new backends, this patch may need extending.
 Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 
+# Patch for a failing test (from Emacs Git):
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=73205
+Patch:         0001-Don-t-fail-uniquify-tests-in-non-version-controlled-.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf

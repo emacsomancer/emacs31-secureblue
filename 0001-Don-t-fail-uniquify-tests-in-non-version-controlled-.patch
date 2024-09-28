@@ -1,0 +1,27 @@
+From ca3932121a893df3c4b08dbe11f2c002da4a421f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mattias=20Engdeg=C3=A5rd?= <mattiase@acm.org>
+Date: Fri, 13 Sep 2024 12:13:53 +0200
+Subject: [PATCH] Don't fail uniquify-tests in non-version-controlled source
+ trees
+
+* test/lisp/uniquify-tests.el (uniquify-project-transform):
+Skip test if there is no project (bug#73205).
+---
+ test/lisp/uniquify-tests.el | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/test/lisp/uniquify-tests.el b/test/lisp/uniquify-tests.el
+index 4124ce056d3..9b33c9d7d47 100644
+--- a/test/lisp/uniquify-tests.el
++++ b/test/lisp/uniquify-tests.el
+@@ -129,6 +129,7 @@ uniquify-trailing-separator-p is ignored"
+ (require 'project)
+ (ert-deftest uniquify-project-transform ()
+   "`project-uniquify-dirname-transform' works"
++  (skip-unless (project-current nil source-directory))
+   (let ((uniquify-dirname-transform #'project-uniquify-dirname-transform)
+         (project-vc-name "foo1/bar")
+         bufs)
+-- 
+2.45.1
+
