@@ -8,7 +8,7 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       30.0.91
+Version:       30.0.92
 Release:       %autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           https://www.gnu.org/software/emacs/
@@ -54,10 +54,6 @@ Patch:         0003-Mark-multiple-mml-sec-tests-as-unstable-when-built-i.patch
 # (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=63555).  If GDK ever
 # gets any new backends, this patch may need extending.
 Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
-
-# Patch for a failing test (from Emacs Git):
-# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=73205
-Patch:         0001-Don-t-fail-uniquify-tests-in-non-version-controlled-.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
