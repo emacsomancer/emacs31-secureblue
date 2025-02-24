@@ -309,7 +309,9 @@ export CFLAGS="-DMAIL_USE_LOCKF %{build_cflags}"
 %if %{with lucid}
 # Build Lucid binary
 cd build-lucid
-%configure --program-suffix=-lucid \
+%configure  \
+           --disable-gc-mark-trace \
+           --program-suffix=-lucid \
            --with-cairo \
            --with-dbus \
            --with-gif \
@@ -337,7 +339,9 @@ cd ..
 %if %{with nw}
 # Build binary without X support
 cd build-nw
-%configure --program-suffix=-nw \
+%configure \
+           --disable-gc-mark-trace \
+           --program-suffix=-nw \
            --with-modules \
            --with-native-compilation=aot \
            --with-sqlite3 \
@@ -355,7 +359,9 @@ cd ..
 %if %{with gtkx11}
 # Build GTK/X11 binary
 cd build-gtk+x11
-%configure --program-suffix=-gtk+x11 \
+%configure  \
+           --disable-gc-mark-trace \
+           --program-suffix=-gtk+x11 \
            --with-cairo \
            --with-dbus \
            --with-gif \
@@ -381,7 +387,9 @@ cd ..
 
 # Build pure GTK binary
 cd build-pgtk
-%configure --with-cairo \
+%configure  \
+           --disable-gc-mark-trace \
+           --with-cairo \
            --with-dbus \
            --with-gif \
            --with-gpm=no \
