@@ -55,6 +55,11 @@ Patch:         emacs-pgtk-on-x-error-message.patch
 # gets any new backends, this patch may need extending.
 Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 
+# Don't override StartupWMClass.  The overriding value doesn't work on
+# Wayland, and the default should be fine.
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
+Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf
