@@ -779,6 +779,7 @@ fi
 %license build-pgtk/etc/COPYING
 %doc build-pgtk/doc/NEWS build-pgtk/BUGS build-pgtk/README
 %{_bindir}/ebrowse
+%ghost %{_bindir}/etags
 %{_bindir}/etags.emacs
 %{_bindir}/gctags
 %{_datadir}/applications/emacs.desktop
@@ -791,6 +792,7 @@ fi
 %{_mandir}/man1/ebrowse.1*
 %{_mandir}/man1/emacs.1*
 %{_mandir}/man1/etags.emacs.1*
+%ghost %{_mandir}/man1/etags.1*
 %{_mandir}/man1/gctags.1*
 %dir %{_datadir}/emacs/%{version}
 %{_datadir}/emacs/%{version}/etc
