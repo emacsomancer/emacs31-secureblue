@@ -469,6 +469,18 @@ cat > macros.emacs << EOF
 %%_emacs_bytecompile(W) /usr/bin/emacs -batch --no-init-file --no-site-file --eval '(push nil load-path)' %%{-W:--eval '(setq byte-compile-error-on-warn t)' }-f batch-byte-compile %%*
 EOF
 
+cat > 10-source-directory.el << 'EOF'
+;;; 10-source-directory.el --- Set source-directory -*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+;; This solves rhbz#474958; Function `update-directory-autoloads' now
+;; finally works.
+
+(setq source-directory "%{_datadir}/emacs/%{version}/")
+
+;;; 10-source-directory.el ends here
+EOF
 
 %install
 %if %{with nw}
@@ -523,22 +535,16 @@ ln -s emacs-%{version}-nw %{buildroot}%{_bindir}/emacs-nox
 # Make sure movemail isn't setgid
 chmod 755 %{buildroot}%{emacs_libexecdir}/movemail
 
-mkdir -p %{buildroot}%{site_lisp}
+mkdir -p %{buildroot}%{site_lisp} %{buildroot}%{site_start_d}
 install -p -m 0644 %SOURCE5 %{buildroot}%{site_lisp}/site-start.el
 install -p -m 0644 %SOURCE6 %{buildroot}%{site_lisp}
-
-# This solves bz#474958, "update-directory-autoloads" now finally
-# works the path is different each version, so we'll generate it here
-echo "(setq source-directory \"%{_datadir}/emacs/%{version}/\")" \
- >> %{buildroot}%{site_lisp}/site-start.el
+install -p -m 0644 10-source-directory.el %{buildroot}%{site_start_d}/
 
 mv %{buildroot}%{_mandir}/man1/{ctags.1.gz,gctags.1.gz}
 mv %{buildroot}%{_bindir}/{ctags,gctags}
 
 # BZ 927996
 mv %{buildroot}%{_infodir}/{info.info.gz,info.gz}
-
-mkdir -p %{buildroot}%{site_lisp}/site-start.d
 
 # Default initialization file
 mkdir -p %{buildroot}%{_sysconfdir}/skel
@@ -800,6 +806,7 @@ fi
 %{_userunitdir}/emacs.service
 %attr(0644,root,root) %config(noreplace) %{site_lisp}/default.el
 %attr(0644,root,root) %config %{site_lisp}/site-start.el
+%{site_start_d}/10-source-directory.el
 %{pkgconfig}/emacs.pc
 
 
