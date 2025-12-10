@@ -825,8 +825,6 @@ fi
 %{_userunitdir}/emacs.service
 %attr(0644,root,root) %config(noreplace) %{site_lisp}/default.el
 %attr(0644,root,root) %config %{site_lisp}/site-start.el
-%{site_start_d}/00-dynamic-module-dir.el
-%{site_start_d}/10-source-directory.el
 %{pkgconfig}/emacs.pc
 
 
