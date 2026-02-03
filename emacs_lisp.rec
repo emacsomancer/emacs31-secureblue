@@ -37,7 +37,7 @@
 
                 (while
                     (search-forward-regexp
-                     (rx (syntax open-parenthesis) (zero-or-more space)
+                     (rx "(" (zero-or-more space)
                          (or "treesit-ensure-installed"
                              "treesit-parser-create"
                              "treesit-ready-p")
@@ -48,7 +48,7 @@
                 (goto-char (point-min))
                 (while
                     (search-forward-regexp
-                     (rx (syntax open-parenthesis) (zero-or-more space)
+                     (rx "(" (zero-or-more space)
                          "define-treesit-generic-mode"
                          (one-or-more space))
                      nil t)
