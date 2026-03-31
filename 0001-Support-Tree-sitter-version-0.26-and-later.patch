@@ -1,4 +1,4 @@
-From 16f0be6354ea13331859c861fa7d423a0b54bec7 Mon Sep 17 00:00:00 2001
+From 9ce49a8e1a047c4a57f6b0c5fa7dfddcdd1b3095 Mon Sep 17 00:00:00 2001
 From: Eli Zaretskii <eliz@gnu.org>
 Date: Fri, 17 Oct 2025 14:15:41 +0300
 Subject: [PATCH] Support Tree-sitter version 0.26 and later
@@ -14,11 +14,11 @@ Define on WINDOWSNT, instead of 'ts_language_version'.
 'treesit_language_abi_version' instead of 'ts_language_version'.
 (Bug#79627)
 ---
- src/treesit.c | 34 +++++++++++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+ src/treesit.c | 36 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
 
 diff --git a/src/treesit.c b/src/treesit.c
-index e2986c186b8..4d6bf9a5dbd 100644
+index e2986c186b8..f87f4654209 100644
 --- a/src/treesit.c
 +++ b/src/treesit.c
 @@ -34,7 +34,11 @@ Copyright (C) 2021-2025 Free Software Foundation, Inc.
@@ -92,6 +92,15 @@ index e2986c186b8..4d6bf9a5dbd 100644
  /* Load the dynamic library of LANGUAGE_SYMBOL and return the pointer
     to the language definition.
  
+@@ -746,7 +778,7 @@ treesit_load_language (Lisp_Object language_symbol,
+     {
+       *signal_symbol = Qtreesit_load_language_error;
+       *signal_data = list2 (Qversion_mismatch,
+-			    make_fixnum (ts_language_version (lang)));
++			    make_fixnum (treesit_language_abi_version (lang)));
+       return NULL;
+     }
+   return lang;
 @@ -817,7 +849,7 @@ DEFUN ("treesit-language-abi-version", Ftreesit_language_abi_version,
  						       &signal_data);
        if (ts_language == NULL)
@@ -102,5 +111,5 @@ index e2986c186b8..4d6bf9a5dbd 100644
      }
  }
 -- 
-2.52.0
+2.53.0
 
