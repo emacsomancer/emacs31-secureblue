@@ -45,6 +45,7 @@ Source22:      emacs-gtk+x11.1
 Source23:      emacs-lucid.1
 Source24:      emacs-nw.1
 Source25:      emacs-pgtk.1
+Patch:         0001-Draw-attention-to-Fedora-s-Emacs-varieties-in-emacs-.patch
 
 # Avoid trademark issues
 Patch:         0001-Pong-and-Tetris-are-excluded.patch

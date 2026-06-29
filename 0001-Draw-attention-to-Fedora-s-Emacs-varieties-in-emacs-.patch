@@ -1,0 +1,74 @@
+From 3127a606c2f62f565653919b479dc1ca79bc9a8e Mon Sep 17 00:00:00 2001
+From: Peter Oliver <git@mavit.org.uk>
+Date: Mon, 29 Jun 2026 12:58:54 +0100
+Subject: [PATCH] =?UTF-8?q?Draw=20attention=20to=20Fedora=E2=80=99s=20Emac?=
+ =?UTF-8?q?s=20varieties=20in=20emacs(1)=20manpage.?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ doc/man/emacs.1.in | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/doc/man/emacs.1.in b/doc/man/emacs.1.in
+index 57264dbb3bf..39e620eb17e 100644
+--- a/doc/man/emacs.1.in
++++ b/doc/man/emacs.1.in
+@@ -13,6 +13,41 @@ emacs \- GNU project Emacs editor
+ ] [
+ .I files ...\&
+ ]
++.br
++.B emacs-desktop
++[
++.I command-line switches
++] [
++.I files ...\&
++]
++.br
++.B emacs-pgtk
++[
++.I command-line switches
++] [
++.I files ...\&
++]
++.br
++.B emacs-gtk+x11
++[
++.I command-line switches
++] [
++.I files ...\&
++]
++.br
++.B emacs-lucid
++[
++.I command-line switches
++] [
++.I files ...\&
++]
++.br
++.B emacs-nw
++[
++.I command-line switches
++] [
++.I files ...\&
++]
+ .
+ .
+ .SH DESCRIPTION
+@@ -649,6 +684,11 @@ Everyone will be free to use, copy, study and change the GNU system.
+ .
+ .SH SEE ALSO
+ .BR emacsclient (1),
++.BR emacs-desktop (1),
++.BR emacs-gtk+x11 (1),
++.BR emacs-lucid (1),
++.BR emacs-nw (1),
++.BR emacs-pgtk (1),
+ .BR etags (1),
+ .BR X (7),
+ .BR xlsfonts (1),
+-- 
+2.54.0
+
