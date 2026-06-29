@@ -1,0 +1,54 @@
+\input texinfo   @c -*- mode: texinfo; -*-
+@c %**start of header
+@setfilename ../../info/emacs-varieties.info
+@settitle Emacs on Fedora Linux
+@documentlanguage en
+@include docstyle.texi
+@c %**end of header
+
+@dircategory Emacs
+@direntry
+* Emacs on Fedora: (emacs-fedora).
+                                Emacs on Fedora Linux and derivatives.
+@end direntry
+
+@node Top
+@top Emacs on Fedora Linux and derivatives
+
+@chapter Build varieties
+
+Fedora Linux includes several different builds of GNU Emacs, each using
+different graphical toolkits (or none at all).  Each is provided in a subpackage of the same name.
+
+@itemize @bullet
+
+@item
+@command{emacs-pgtk} uses purely the GTK toolkit, and is suggested for
+use with Wayland displays.  The Emacs developers recommend not running
+it on the X Window System.
+
+@item
+@command{emacs-gtk+x11} uses the GTK toolkit, for use on the X Window
+System.
+
+@item
+@command{emacs-lucid} uses the Lucid toolkit, for use on the X Window
+System.
+
+@item
+@command{emacs-nw} has no graphical display support, and can be run on a
+terminal only.  The package that contains it has many fewer dependencies
+on other packages, which can lead to significantly smaller installation
+sizes on servers without graphical environments.
+
+@end itemize
+
+Additionally, Fedora provides a wrapper, @command{emacs-desktop}, which
+will try to guess a suitable build, from those installed, for the
+current desktop environment.
+
+A favoured build can be selected using the @command{alternatives}
+system, with @command{emacs-desktop} taking the highest priority by
+default.
+
+@bye
