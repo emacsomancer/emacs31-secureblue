@@ -1,0 +1,41 @@
+.TH EMACS-DESKTOP 1 "2026-06-29" "GNU Emacs" "Fedora Linux"
+.
+.SH NAME
+emacs-desktop \- Emacs desktop wrapper
+.
+.SH SYNOPSIS
+.B emacs-desktop
+[
+.I command-line switches
+] [
+.I files ...\&
+]
+.
+.SH DESCRIPTION
+Fedora Linux includes several different builds of GNU Emacs, each using
+different graphical toolkits (or none at all).  However, the Emacs
+developers recommend not running a pure GTK build of Emacs on the X
+Window System.  Fedora provides a wrapper, \fBemacs-desktop\fR, which
+will try to guess a suitable build, from those installed, for the
+current desktop environment.
+.
+.P
+Note that a favoured build can be selected using the \fBalternatives\fR
+system, with \fBemacs-desktop\fR taking the highest priority by default.
+.
+.SH SEE ALSO
+.BR alternatives (1),
+.BR emacs (1),
+.BR emacs-gtk+x11 (1),
+.BR emacs-lucid (1),
+.BR emacs-nw (1),
+.BR emacs-pgtk (1),
+.
+.SH AUTHORS
+Peter Oliver
+.
+.\" Local Variables:
+.\" eval: (add-hook 'before-save-hook 'time-stamp nil t)
+.\" time-stamp-pattern: "^\\.TH [^ ]+ [^ ]+ \"?%Y-%m-%d\\_>"
+.\" time-stamp-time-zone: "UTC0"
+.\" End:

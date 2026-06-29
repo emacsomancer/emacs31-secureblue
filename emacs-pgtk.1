@@ -1,0 +1,44 @@
+.TH EMACS-PGTK 1 "2026-06-29" "GNU Emacs" "Fedora Linux"
+.
+.SH NAME
+emacs-pgtk \- Emacs with support for Wayland, using the GTK toolkit
+.
+.SH SYNOPSIS
+.B emacs-pgtk
+[
+.I command-line switches
+] [
+.I files ...\&
+]
+.
+.SH DESCRIPTION
+Fedora Linux includes several different builds of GNU Emacs, each using
+different graphical toolkits (or none at all).
+.
+.P
+The \fBemacs-pgtk\fR binary uses purely the GTK toolkit, and is
+suggested for use with Wayland displays.  The Emacs developers recommend
+not running it on the X Window System.
+.
+.P
+Note that a favoured build can be selected using the \fBalternatives\fR
+system.  Note also that Fedora provides a wrapper, \fBemacs-desktop\fR, which
+will try to guess a suitable build, from those installed, for the
+current desktop environment.
+.
+.SH SEE ALSO
+.BR alternatives (1),
+.BR emacs (1),
+.BR emacs-desktop (1),
+.BR emacs-gtk+x11 (1),
+.BR emacs-lucid (1),
+.BR emacs-nw (1),
+.
+.SH AUTHORS
+Peter Oliver
+.
+.\" Local Variables:
+.\" eval: (add-hook 'before-save-hook 'time-stamp nil t)
+.\" time-stamp-pattern: "^\\.TH [^ ]+ [^ ]+ \"?%Y-%m-%d\\_>"
+.\" time-stamp-time-zone: "UTC0"
+.\" End:
