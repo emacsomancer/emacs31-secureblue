@@ -8,7 +8,7 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       31.0.90
+Version:       31.0.91
 Release:       %autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           https://www.gnu.org/software/emacs/
