@@ -8,11 +8,16 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       31.0.91
-Release:       %autorelease
+Version:       31.1
+Release:       0.rc1.%autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           https://www.gnu.org/software/emacs/
-%if %{lua: print(select(3, string.find(rpm.expand('%version'), '%d+%.%d+%.(%d+)')) or 0)} >= 90
+
+%global rc %{lua: print(select(3, string.find(rpm.expand('%release'), '.(rc%d+).')))}
+%if "%{rc}" != ""
+Source0:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}-%{rc}.tar.xz
+Source1:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}-%{rc}.tar.xz.sig
+%elif %{lua: print(select(3, string.find(rpm.expand('%version'), '%d+%.%d+%.(%d+)')) or 0)} >= 90
 Source0:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz
 Source1:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz.sig
 %else
