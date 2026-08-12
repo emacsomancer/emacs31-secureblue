@@ -45,7 +45,9 @@
                          (or "treesit-ensure-installed"
                              "treesit-parser-create"
                              "treesit-ready-p")
-                         (one-or-more space) "'")
+                         (one-or-more space)
+                         (or "'"
+                             (and "(quote" (one-or-more space))))
                      nil t)
                   (add-parser-at-point))
 
