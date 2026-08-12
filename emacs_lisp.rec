@@ -51,22 +51,26 @@
                      nil t)
                   (add-parser-at-point))
 
-                (goto-char (point-min))
-                (while
-                    (search-forward-regexp
-                     (rx "(" (zero-or-more space)
-                         "define-treesit-generic-mode"
-                         (one-or-more space))
-                     nil t)
-                  (backward-char)
-                  (when
-                      (search-forward-regexp
-                       (rx space ":lang" (one-or-more space) "'")
-                       (save-excursion
-                         (end-of-defun)
-                         (point))
-                       t)
-                    (add-parser-at-point)))
+                ;;;; It's unhelpful to recommend parsers for generic
+                ;;;; Tree-sitter modes until
+                ;;;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=81025
+                ;;;; is fixed.
+                ;; (goto-char (point-min))
+                ;; (while
+                ;;     (search-forward-regexp
+                ;;      (rx "(" (zero-or-more space)
+                ;;          "define-treesit-generic-mode"
+                ;;          (one-or-more space))
+                ;;      nil t)
+                ;;   (backward-char)
+                ;;   (when
+                ;;       (search-forward-regexp
+                ;;        (rx space ":lang" (one-or-more space) "'")
+                ;;        (save-excursion
+                ;;          (end-of-defun)
+                ;;          (point))
+                ;;        t)
+                ;;     (add-parser-at-point)))
 
                 (when parsers
                   (princ (concat ";" filename "\n"))
