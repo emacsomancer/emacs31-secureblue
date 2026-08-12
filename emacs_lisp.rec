@@ -15,7 +15,11 @@
 (defun add-parser-at-point ()
   "Add symbol at point to list `parsers' (unless in a comment)."
   (unless (nth 4 (syntax-ppss))
-    (add-to-list 'parsers (thing-at-point 'symbol t))))
+    (let ((parser-name (thing-at-point 'symbol t)))
+      (if parser-name (add-to-list 'parsers parser-name)
+        (forward-char)
+        (dolist (parser-symbol (read (thing-at-point 'list t)))
+          (add-to-list 'parsers (symbol-name parser-symbol)))))))
 
 (condition-case nil
     (while (setq filename (read-from-minibuffer ""))
