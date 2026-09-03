@@ -5,6 +5,10 @@
 %bcond_without lucid
 %bcond_without nw
 
+# Secureblue hardening.
+%global secureblue_cflags %{optflags} -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fPIE
+%global secureblue_ldflags -Wl,-z,relro -Wl,-z,now -pie
+
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
