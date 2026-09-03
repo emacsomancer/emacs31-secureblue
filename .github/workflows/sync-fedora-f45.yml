@@ -1,0 +1,74 @@
+name: Sync Fedora F45 Emacs packaging
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Add Fedora remote
+        run: |
+          git remote add fedora \
+            https://src.fedoraproject.org/rpms/emacs.git || true
+          git fetch fedora f45
+
+      - name: Check for upstream changes
+        id: upstream
+        run: |
+          git checkout secureblue-f45
+
+          UPSTREAM=$(git rev-parse fedora/f45)
+          CURRENT=$(git merge-base HEAD fedora/f45)
+
+          echo "upstream=$UPSTREAM" >> "$GITHUB_OUTPUT"
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+
+          if [ "$UPSTREAM" = "$CURRENT" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create update branch
+        if: steps.upstream.outputs.changed == 'true'
+        run: |
+          BRANCH="automation/sync-fedora-f45-${{ steps.upstream.outputs.upstream }}"
+
+          git checkout -b "$BRANCH"
+          git merge --no-edit fedora/f45
+
+          git push origin "$BRANCH"
+
+      - name: Create pull request
+        if: steps.upstream.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="automation/sync-fedora-f45-${{ steps.upstream.outputs.upstream }}"
+
+          gh pr create \
+            --base secureblue-f45 \
+            --head "$BRANCH" \
+            --title "Sync Fedora F45 Emacs packaging" \
+            --body "Automated sync of the latest Fedora F45 Emacs packaging changes.
+
+          This PR should be reviewed to ensure the Secureblue hardening changes remain appropriate."
