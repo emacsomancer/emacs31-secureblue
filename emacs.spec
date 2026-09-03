@@ -6,8 +6,8 @@
 %bcond_without nw
 
 # Secureblue hardening.
-%global secureblue_cflags %{optflags} -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fPIE
-%global secureblue_ldflags -Wl,-z,relro -Wl,-z,now -pie
+%global secureblue_cflags %{build_cflags} -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fPIE
+%global secureblue_ldflags %{build_ldflags} -Wl,-z,relro -Wl,-z,now -pie
 
 Summary:       GNU Emacs text editor
 Name:          emacs
@@ -371,8 +371,10 @@ mv %{name}-%{version} build-pgtk
 
 
 %build
-export CFLAGS="-DMAIL_USE_LOCKF %{build_cflags}"
 %set_build_flags
+
+export CFLAGS="%{secureblue_cflags} -DMAIL_USE_LOCKF"
+export LDFLAGS="%{secureblue_ldflags}"
 
 %if %{with lucid}
 # Build Lucid binary
