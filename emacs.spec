@@ -5,10 +5,11 @@
 %bcond_without lucid
 %bcond_without nw
 
-# Secureblue hardening.
+# SecureBlue hardening.
 #
-# %set_build_flags establishes the distribution build flags.  Preserve those
-# and append these Secureblue hardening requirements in %build.
+# Fedora's standard build-flags macro establishes the distribution compiler
+# flags. Preserve those flags and append the SecureBlue requirements in the
+# build section.
 %global secureblue_cflags -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fPIE
 %global secureblue_ldflags -Wl,-z,relro -Wl,-z,now -pie
 
