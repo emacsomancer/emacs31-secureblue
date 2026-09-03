@@ -1,0 +1,28 @@
+name: Rebuild COPR
+
+on:
+  push:
+    branches:
+      - secureblue-f45
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger COPR build
+        env:
+          COPR_LOGIN: ${{ secrets.COPR_LOGIN }}
+          COPR_TOKEN: ${{ secrets.COPR_TOKEN }}
+        run: |
+          curl \
+            --user "$COPR_LOGIN:$COPR_TOKEN" \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --data '{
+              "clone_url": "https://github.com/emacsomancer/emacs31-secureblue.git",
+              "committish": "secureblue-f45",
+              "spec": "emacs.spec",
+              "method": "make_srpm"
+            }' \
+            "https://copr.fedorainfracloud.org/api_3/build/create"

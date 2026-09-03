@@ -1,4 +1,4 @@
-name: Sync Fedora F45 Emacs packaging
+name: Sync Fedora F45
 
 on:
   schedule:
@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -25,50 +24,37 @@ jobs:
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Add Fedora remote
+      - name: Fetch Fedora F45
         run: |
           git remote add fedora \
             https://src.fedoraproject.org/rpms/emacs.git || true
           git fetch fedora f45
 
-      - name: Check for upstream changes
-        id: upstream
+      - name: Create sync branch
         run: |
           git checkout secureblue-f45
 
-          UPSTREAM=$(git rev-parse fedora/f45)
-          CURRENT=$(git merge-base HEAD fedora/f45)
-
-          echo "upstream=$UPSTREAM" >> "$GITHUB_OUTPUT"
-          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
-
-          if [ "$UPSTREAM" = "$CURRENT" ]; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+          if git merge-base --is-ancestor fedora/f45 HEAD; then
+            echo "Already up to date"
+            exit 0
           fi
 
-      - name: Create update branch
-        if: steps.upstream.outputs.changed == 'true'
-        run: |
-          BRANCH="automation/sync-fedora-f45-${{ steps.upstream.outputs.upstream }}"
+          BRANCH="automation/sync-fedora-f45-$(git rev-parse --short fedora/f45)"
 
           git checkout -b "$BRANCH"
           git merge --no-edit fedora/f45
 
           git push origin "$BRANCH"
 
+          echo "branch=$BRANCH" >> "$GITHUB_ENV"
+
       - name: Create pull request
-        if: steps.upstream.outputs.changed == 'true'
+        if: env.branch != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          BRANCH="automation/sync-fedora-f45-${{ steps.upstream.outputs.upstream }}"
-
           gh pr create \
             --base secureblue-f45 \
-            --head "$BRANCH" \
+            --head "$branch" \
             --title "Sync Fedora F45 Emacs packaging" \
-            --body "Automated sync of the latest Fedora F45 Emacs packaging changes.
-
-          This PR should be reviewed to ensure the Secureblue hardening changes remain appropriate."
+            --body "Automated sync from Fedora F45."
