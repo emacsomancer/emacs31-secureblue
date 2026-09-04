@@ -280,11 +280,11 @@ Recommends:    /usr/bin/git
 Recommends:    gcc
 Recommends:    (gcc-c++ if libtree-sitter < 0.24.0)
 
-# Do not use %{load:%SOURCE10} here.
+# Do not load Source10 as an RPM macro file here.
 #
-# COPR reparses the spec after SRPM creation and cannot load Source10 from
-# its results directory.  The file is still installed into the package in
-# %install below.
+# COPR reparses the spec after SRPM creation and cannot load the source file
+# from its results directory. The file is installed into the package during
+# the install phase below.
 %global _local_file_attrs emacs_lisp
 
 %global __emacs_lisp_recommends \
