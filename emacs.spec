@@ -616,9 +616,15 @@ install -p -m 0755 emacs-desktop.sh %{buildroot}%{_bindir}/emacs-desktop
 
 # Install Fedora-specific manpages:
 install -p -m 0644 %SOURCE21 %{buildroot}%{_mandir}/man1/%{basename %SOURCE21}
+%if %{with gtkx11}
 install -p -m 0644 %SOURCE22 %{buildroot}%{_mandir}/man1/%{basename %SOURCE22}
+%endif
+%if %{with lucid}
 install -p -m 0644 %SOURCE23 %{buildroot}%{_mandir}/man1/%{basename %SOURCE23}
+%endif
+%if %{with nw}
 install -p -m 0644 %SOURCE24 %{buildroot}%{_mandir}/man1/%{basename %SOURCE24}
+%endif
 install -p -m 0644 %SOURCE25 %{buildroot}%{_mandir}/man1/%{basename %SOURCE25}
 
 # Remove duplicate desktop-related files
