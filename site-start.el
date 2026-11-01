@@ -6,11 +6,13 @@
 
 ;;; Code:
 
-(mapc
- 'load
- (delete-dups
-  (mapcar 'file-name-sans-extension
-          (directory-files
-           "/usr/share/emacs/site-lisp/site-start.d" t "\\.elc?\\'"))))
+(dolist
+    (file
+     (delete-dups
+      (mapcar 'file-name-sans-extension
+              (directory-files
+               "/usr/share/emacs/site-lisp/site-start.d" t "\\.elc?\\'"))))
+  (let ((inhibit-message t))
+    (load file nil nil nil t)))
 
 ;;; site-start.el ends here

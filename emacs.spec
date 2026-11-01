@@ -79,6 +79,10 @@ Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
 Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 
+# Emacs arbitrary code execution: incomplete fix for CVE-2024-53920
+# https://www.openwall.com/lists/oss-security/2026/09/14/1
+Patch:         0001-flymake.el-Generalize-trusted-content-p-check-to-all.patch
+
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
 BuildRequires: autoconf
@@ -619,9 +623,15 @@ install -p -m 0755 emacs-desktop.sh %{buildroot}%{_bindir}/emacs-desktop
 
 # Install Fedora-specific manpages:
 install -p -m 0644 %SOURCE21 %{buildroot}%{_mandir}/man1/%{basename %SOURCE21}
+%if %{with gtkx11}
 install -p -m 0644 %SOURCE22 %{buildroot}%{_mandir}/man1/%{basename %SOURCE22}
+%endif
+%if %{with lucid}
 install -p -m 0644 %SOURCE23 %{buildroot}%{_mandir}/man1/%{basename %SOURCE23}
+%endif
+%if %{with nw}
 install -p -m 0644 %SOURCE24 %{buildroot}%{_mandir}/man1/%{basename %SOURCE24}
+%endif
 install -p -m 0644 %SOURCE25 %{buildroot}%{_mandir}/man1/%{basename %SOURCE25}
 
 # Remove duplicate desktop-related files
