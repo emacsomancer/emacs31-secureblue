@@ -12,6 +12,7 @@
       (mapcar 'file-name-sans-extension
               (directory-files
                "/usr/share/emacs/site-lisp/site-start.d" t "\\.elc?\\'"))))
-  (load file nil t nil t))
+  (let ((inhibit-message t))
+    (load file nil nil nil t)))
 
 ;;; site-start.el ends here
